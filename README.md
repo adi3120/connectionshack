@@ -1,1 +1,1 @@
-[![Streamlit App](https://static.streamlit.io/badges/streamlit_badge_black_white.svg)]([URL_TO_YOUR_APP](https://experimentalconnectionmovierecommendation.streamlit.app/)https://experimentalconnectionmovierecommendation.streamlit.app/)
+[![Streamlit App](https://static.streamlit.io/badges/streamlit_badge_black_white.svg)]([https://experimentalconnectionmovierecommendation.streamlit.app/]
