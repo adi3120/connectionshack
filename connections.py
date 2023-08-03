@@ -51,4 +51,28 @@ class TmdbConnection(ExperimentalBaseConnection):
     def get_auth_stat(self):
          endpoint="authentication"
          return self._request("GET",endpoint)
+    def search_movie_by_name(self, movie_name, page=1):
+        endpoint = f"search/movie?query={movie_name}&page={page}"
+        return self._request("GET", endpoint)
+
+    def search_movie_by_actor(self, actor_name, page=1):
+        endpoint = f"search/person?query={actor_name}&page={page}"
+        response = self._request("GET", endpoint)
+        actor_id = response.get("results", [])[0].get("id") if response.get("results") else None
+        if actor_id:
+            endpoint = f"discover/movie?with_cast={actor_id}&sort_by=popularity.desc&page={page}"
+            return self._request("GET", endpoint)
+        return {"results": []}
+
+    def search_movie_by_director(self, director_name, page=1):
+        endpoint = f"search/person?query={director_name}&page={page}"
+        response = self._request("GET", endpoint)
+        director_id = response.get("results", [])[0].get("id") if response.get("results") else None
+        if director_id:
+            endpoint = f"discover/movie?with_crew={director_id}&sort_by=popularity.desc&page={page}"
+            return self._request("GET", endpoint)
+        return {"results": []}
+    def get_movie_cast(self, movie_id):
+        endpoint = f"movie/{movie_id}/credits"
+        return self._request("GET", endpoint)
          
