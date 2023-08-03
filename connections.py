@@ -1,6 +1,7 @@
 import streamlit as st
 from streamlit.connections import ExperimentalBaseConnection
 import requests
+import os
 
 genre_id = {
     'Action':28,
@@ -27,12 +28,11 @@ genre_id = {
 
 class TmdbConnection(ExperimentalBaseConnection):
     def _connect(self):
-        # Your TMDB API key and base URL
-        api_key = "b1f4c14647b54d6f5b1a496ae02d486c"
+        access_token = os.environ.get("ACCESS_TOKEN")
         self.base_url = "https://api.themoviedb.org/3"
         self.headers = {
     		"accept": "application/json",
-    		"Authorization": "Bearer eyJhbGciOiJIUzI1NiJ9.eyJhdWQiOiJiMWY0YzE0NjQ3YjU0ZDZmNWIxYTQ5NmFlMDJkNDg2YyIsInN1YiI6IjYyNWEzYTdhZDM4YjU4MDA5YzQ3MWRkOSIsInNjb3BlcyI6WyJhcGlfcmVhZCJdLCJ2ZXJzaW9uIjoxfQ.DDNzwwmoe2wajypyCTHyA4A9n07hlXsYHl1mSE6xiuU"
+    		"Authorization": f"Bearer {access_token}"
 		}
     def _request(self, method, endpoint):
         url = f"{self.base_url}/{endpoint}"
